@@ -1,0 +1,99 @@
+.stage {
+  /* the sky before (or without) WebGL */
+  background: linear-gradient(to bottom, #a7c3e2 0%, #c6d6e8 44%, #d6dee7 66%, #dde1e5 100%);
+  will-change: clip-path;
+}
+.lite {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.note {
+  position: absolute;
+  top: 47svh;
+  left: 44%;
+  z-index: 10;
+  display: none;
+  align-items: flex-start;
+  gap: 0.4rem;
+  pointer-events: none;
+  transition: opacity 0.5s;
+}
+.note[data-out] {
+  opacity: 0;
+}
+.note :global(span) {
+  color: inherit;
+}
+.noteWords {
+  margin-top: 0.2rem;
+  font: var(--type-text);
+  line-height: 1.25;
+}
+.noteArrow {
+  width: 3.2rem;
+  height: 2.8rem;
+
+}
+@media (min-width: 768px) {
+  .note {
+    display: flex;
+  }
+}
+
+/* ───────── loader ───────── */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: color-mix(in srgb, #d2d5d8 20%, transparent);
+  pointer-events: none;
+  transition: opacity 0.7s ease;
+}
+.loaderGone {
+  opacity: 0;
+}
+.loaderLabel {
+  position: absolute;
+  bottom: 1.5rem;
+  left: var(--page-x);
+  max-width: calc(100% - 2 * var(--page-x) - 4.5rem);
+  margin: 0;
+  font: 400 clamp(0.8rem, 1.2vw, 1rem) / 1.25 var(--font-tech);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0f0f0f;
+}
+.loaderCount {
+  position: absolute;
+  right: var(--page-x);
+  bottom: 1.5rem;
+  display: flex;
+  margin: 0;
+  font: 400 clamp(1.2rem, 2vw, 1.6rem) / 1 var(--font-tech);
+  font-variant-numeric: tabular-nums;
+  color: #0f0f0f;
+}
+.digit {
+  display: block;
+  height: 1em;
+  overflow: hidden;
+}
+.digit > span {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease-out;
+}
+.digit > span > span {
+  display: block;
+  height: 1em;
+}
+@media (min-width: 768px) {
+  .loaderLabel,
+  .loaderCount {
+    bottom: 2.5rem;
+  }
+}

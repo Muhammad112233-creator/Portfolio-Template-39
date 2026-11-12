@@ -1,0 +1,333 @@
+.bar {
+  --bar-left: 18px;
+  position: fixed;
+  top: 14px;
+  left: var(--bar-left);
+  right: 18px;
+  z-index: 370;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  mix-blend-mode: difference;
+  transition:
+    translate 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.9s;
+}
+.bar[data-hidden] {
+  opacity: 0;
+  pointer-events: none;
+  translate: 0 -28px;
+}
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border: 0;
+  background: none;
+  color: #fff;
+  text-decoration: none;
+  transition:
+    scale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    color 0.3s,
+    opacity 0.3s;
+}
+.box:focus {
+  outline: none;
+}
+.box:focus-visible {
+  outline: 2px solid;
+  outline-offset: 4px;
+  border-radius: 999px;
+}
+.box:active {
+  scale: 0.94;
+}
+.logo {
+  justify-content: flex-start;
+}
+.logo svg {
+  width: auto;
+  height: 30px;
+}
+.wordmark {
+  position: absolute;
+  top: 0;
+  left: 44px;
+  font: 500 calc(var(--fs-text) * 1.35) / 1 var(--font-grotesk);
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.music {
+  gap: 0.5rem;
+  padding: 0 0.25rem;
+}
+.musicWord {
+  font: 700 0.75rem / 1 var(--font-tech);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.music svg {
+  width: 22px;
+  height: 16px;
+  overflow: visible;
+}
+.eq {
+  fill: currentColor;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transform: scaleY(0.14);
+  transition: transform 0.4s;
+}
+.musicOn .eq {
+  animation: eq 1.1s ease-in-out infinite alternate;
+}
+.musicOn .eq:nth-child(2) {
+  animation-duration: 0.8s;
+}
+.musicOn .eq:nth-child(3) {
+  animation-duration: 1.3s;
+}
+.musicOn .eq:nth-child(4) {
+  animation-duration: 0.95s;
+}
+@keyframes eq {
+  0% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(0.9);
+  }
+  to {
+    transform: scaleY(0.45);
+  }
+}
+.menuBox {
+  padding: 0;
+  font: 500 calc(var(--fs-text) * 1.35) / 1 var(--font-grotesk);
+  letter-spacing: var(--ls-text);
+}
+.word {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 1.2em;
+  overflow: hidden;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.word span {
+  grid-area: 1 / 1;
+}
+.word span:last-child,
+.open .word span:first-child {
+  display: none;
+}
+.open .word span:last-child {
+  display: block;
+}
+.bar[data-open] :is(.logo, .wordmark, .music) {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 380px) {
+  .musicWord {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .bar {
+    --bar-left: 22px;
+    top: 20px;
+    right: 46px;
+    align-items: flex-start;
+    pointer-events: none;
+  }
+  .bar > * {
+    pointer-events: auto;
+  }
+  .box {
+    height: 56px;
+  }
+  .logo svg {
+    height: 34px;
+  }
+  .wordmark {
+    left: calc(50vw - var(--bar-left));
+    font-size: calc(var(--fs-text) * 1.3);
+    translate: -50%;
+  }
+  .menuBox {
+    font-size: calc(var(--fs-text) * 1.3);
+  }
+  .music svg {
+    width: 20px;
+  }
+}
+
+/* Over the sky the bar is plain ink; everywhere else it inverts. */
+:global(html[data-nav-solid]:not([data-sky='night'])) .bar {
+  mix-blend-mode: normal;
+}
+:global(html[data-nav-solid]:not([data-sky='night'])) .bar .box {
+  color: #0f0f0f;
+}
+:global(html[data-foot-sky]) .bar {
+  mix-blend-mode: normal;
+}
+:global(html[data-foot-sky]) .bar .box {
+  color: #0f0f0f;
+}
+.bar[data-open] {
+  mix-blend-mode: normal;
+}
+.bar[data-open] .box {
+  color: var(--nav-ink);
+}
+
+/* ───────── panel ───────── */
+.panel {
+  position: fixed;
+  top: 62px;
+  right: 18px;
+  z-index: 360;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  width: calc(100vw - 36px);
+  max-width: 22rem;
+  padding: 8px 18px 18px;
+  background: var(--nav-bg);
+  color: var(--nav-ink);
+  box-shadow: 0 18px 50px #1111112e;
+  visibility: hidden;
+  will-change: clip-path;
+}
+.panel a {
+  color: inherit;
+  text-decoration: none;
+}
+.panelHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: -0.6rem;
+  padding-top: 12px;
+  font: 500 var(--fs-text) / 1 var(--font-grotesk);
+  letter-spacing: -0.03em;
+}
+.panelHead svg {
+  width: auto;
+  height: 28px;
+}
+.links {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.item {
+  border-top: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+}
+.item:first-child {
+  border-top: 0;
+}
+.item:last-child {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+}
+.link {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.7rem 0 0.6rem;
+  font: var(--type-head);
+  font-size: clamp(1.35rem, 1.2rem + 0.6vw, 1.75rem);
+  letter-spacing: var(--ls-head);
+  text-transform: uppercase;
+}
+.linkMask {
+  display: block;
+  overflow: hidden;
+  transition: translate 0.65s cubic-bezier(0.65, 0, 0.2, 1);
+}
+.linkInner {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+.name {
+  position: relative;
+}
+.current .name::after {
+  content: '';
+  position: absolute;
+  top: 54%;
+  left: -0.04em;
+  right: -0.04em;
+  height: 0.07em;
+  min-height: 2px;
+  background: currentColor;
+}
+@media (hover: hover) {
+  .link:hover .linkMask,
+  .link:focus-visible .linkMask {
+    translate: 0.5rem;
+  }
+}
+.foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  font: var(--type-text);
+  letter-spacing: var(--ls-text);
+}
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  margin: 0.6rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.hi {
+  white-space: nowrap;
+}
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 350;
+  background: #1111111f;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.5s,
+    visibility 0s linear 0.5s;
+}
+.scrim[data-on] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s;
+}
+@media (min-width: 768px) {
+  .panel {
+    top: 84px;
+    right: 46px;
+    max-width: 24rem;
+    padding: 10px 24px 24px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .musicOn .eq {
+    animation: none;
+    transform: scaleY(0.6);
+  }
+}

@@ -1,0 +1,33 @@
+.wrap {
+  position: relative;
+  z-index: 1;
+  height: 200svh;
+  margin-top: -100svh;
+}
+.pin {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+}
+.shade,
+.flapHolder {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+/* between the revealed page (1) and the hero (10) */
+.shade {
+  z-index: 9;
+}
+.flapHolder {
+  z-index: 11;
+  filter: drop-shadow(0 0 26px rgb(18 26 44 / 0.34));
+}
+.flap {
+  position: absolute;
+  inset: 0;
+  will-change: clip-path;
+}

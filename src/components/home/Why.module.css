@@ -1,0 +1,249 @@
+.frame {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+}
+:global(html:not([data-why-shown])) .frame > * {
+  visibility: hidden;
+}
+
+/* things arrive from the turned corner */
+.frame [data-why-in] {
+  transition:
+    transform 0.95s cubic-bezier(0.2, 0.9, 0.2, 1),
+    opacity 0.6s ease;
+}
+:global(html:not([data-why-shown])) .frame [data-why-in] {
+  opacity: 0;
+  transform: translate(120px, 150px) rotate(6deg) scale(0.92);
+}
+.frame [data-why-in='side'] {
+  transition-delay: 0.12s;
+}
+.frame [data-why-in='pet'] {
+  transition-delay: 0.3s;
+}
+
+.header {
+  position: absolute;
+  z-index: 2;
+  top: calc(86px + 3rem);
+  left: var(--page-x);
+}
+.headline {
+  margin: 0;
+  font: var(--type-title);
+  letter-spacing: var(--ls-title);
+  line-height: 1.05;
+}
+.headline span {
+  display: block;
+}
+
+.scene {
+  position: absolute;
+  z-index: 1;
+  top: 14svh;
+  bottom: 6svh;
+  left: calc(var(--page-x) + 6vw);
+  width: min(58vw, 112svh);
+  pointer-events: none;
+}
+
+.note {
+  position: absolute;
+  z-index: 2;
+  top: 15svh;
+  left: 39%;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  pointer-events: none;
+}
+.noteWords {
+  font: var(--type-text);
+  line-height: 1.25;
+}
+.noteArrow {
+  width: 3.5rem;
+  height: 3rem;
+  margin-top: 1.6rem;
+}
+
+.review {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: var(--page-x);
+  width: min(27rem, 30vw);
+  translate: 0 -50%;
+}
+.reviewLabel {
+  margin: 0 0 0.9rem;
+  font: var(--type-meta);
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.reviewTrack {
+  position: relative;
+  display: block;
+  height: 1px;
+  background: color-mix(in srgb, currentColor 20%, transparent);
+}
+.reviewFill {
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  animation: review-fill linear forwards;
+}
+.reviewBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.9rem;
+}
+.reviewArrows {
+  display: flex;
+  gap: 0.25rem;
+}
+.reviewArrows button {
+  margin-left: -0.4rem;
+  padding: 0.25rem 0.4rem;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: var(--type-text);
+  transition: opacity 0.2s;
+}
+.reviewArrows button:hover {
+  opacity: 0.55;
+}
+.reviewCount {
+  font: var(--type-meta);
+  letter-spacing: var(--ls-meta);
+  opacity: 0.55;
+}
+.reviewBody {
+  margin: 1.75rem 0 0;
+  animation: review-in 0.7s ease-out both;
+}
+.reviewQuote {
+  margin: 0;
+  font: var(--type-text);
+  font-size: calc(var(--fs-text) * 1.25);
+  line-height: 1.3;
+}
+.reviewFrom {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 1.5rem;
+}
+.reviewLogo {
+  font-size: 1.5rem;
+}
+.reviewWho {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.reviewBy {
+  font: var(--type-meta);
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+@keyframes review-in {
+  0% {
+    opacity: 0;
+    translate: 0 0.5rem;
+  }
+}
+@keyframes review-fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.copy {
+  position: absolute;
+  z-index: 2;
+  right: var(--page-x);
+  bottom: clamp(1.5rem, 4svh, 2.5rem);
+  width: min(30rem, 36vw);
+  margin: 0;
+  font: var(--type-text);
+  line-height: 1.4;
+}
+.doodle {
+  position: absolute;
+  z-index: 2;
+  bottom: clamp(3.5rem, 9svh, 5rem);
+  left: calc(var(--page-x) + 17vw);
+  display: block;
+  width: clamp(7rem, 9vw, 11rem);
+  pointer-events: none;
+}
+.doodle svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 768px) {
+  .review {
+    right: calc(var(--page-x) + 3.75rem);
+  }
+}
+
+@media (max-width: 700px) {
+  .frame {
+    --why-head-top: clamp(6.25rem, 13svh, 8rem);
+  }
+  .header {
+    top: var(--why-head-top);
+    right: var(--page-x);
+  }
+  .headline {
+    font: var(--type-mtitle);
+    letter-spacing: var(--ls-mtitle);
+  }
+  .scene {
+    top: calc(var(--why-head-top) + 3.15 * clamp(2.25rem, 10.5vw, 2.75rem) + 1.25rem);
+    bottom: 20svh;
+    left: 50%;
+    width: 100vw;
+    translate: -50%;
+  }
+  .note,
+  .review {
+    display: none;
+  }
+  .copy {
+    left: var(--page-x);
+    width: auto;
+  }
+  .doodle {
+    right: 12%;
+    bottom: calc(20svh + 1.5rem);
+    left: auto;
+    width: 4.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reviewBody,
+  .reviewFill {
+    animation: none;
+  }
+  .frame [data-why-in] {
+    transition: none;
+  }
+}

@@ -1,0 +1,518 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-paper: #ffffff;
+  --color-ink: #0f0f0f;
+  --color-sage: #dde4c3;
+  --color-butter: #f6f4d4;
+  --font-grotesk: var(--font-space-grotesk), 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: var(--font-space-mono), ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+
+/* ───────────────────────── tokens ───────────────────────── */
+
+:root {
+  --paper: #ffffff;
+  --ink: #0f0f0f;
+  --sage: #dde4c3;
+  --butter: #f6f4d4;
+  --signal: #1f1e1c;
+  --mist: #0f0f0f;
+
+  --font-display: var(--font-grotesk);
+  --font-tech: var(--font-mono);
+
+  /* type */
+  --fs-text: 1rem;
+  --fw-text: 700;
+  --fs-semi: clamp(1.5rem, 2.3vw, 2.6rem);
+  --fs-title: clamp(2.2rem, 1rem + 3.8vw, 5rem);
+  --type-text: var(--fw-text) var(--fs-text) / 1.3 var(--font-grotesk);
+  --type-head: 500 var(--fs-text) / 1.05 var(--font-grotesk);
+  --type-title: 400 var(--fs-title) / 1 var(--font-grotesk);
+  --type-mtitle: 700 clamp(2.25rem, 10.5vw, 3.25rem) / 0.95 var(--font-grotesk);
+  --type-meta: 700 0.9rem / 1.3 var(--font-tech);
+  --type-statement: 600 clamp(1.75rem, 2.55vw, 3rem) / 1.02 var(--font-grotesk);
+  --type-mstatement: 600 1.5rem / 1.05 var(--font-grotesk);
+  --ls-text: -0.005em;
+  --ls-head: -0.02em;
+  --ls-title: -0.03em;
+  --ls-mtitle: -0.06em;
+  --ls-meta: 0.06em;
+  --ls-statement: -0.045em;
+  --ls-mstatement: -0.04em;
+
+  /* space */
+  --page-x: clamp(1rem, 2vw, 2.5rem);
+  --gutter: clamp(1rem, 3.75vw, 4.5rem);
+  --btn-h: 2.6rem;
+  --btn-pad: 0.95rem;
+
+  /* things that follow the sky */
+  --sky-ink: #171717;
+  --sky-ink-soft: #262626;
+  --nav-bg: #111111;
+  --nav-ink: #ffffff;
+
+  --cursor-dot: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='3.2' fill='%23111111' stroke='white' stroke-width='1.2'/%3E%3C/svg%3E") 8 8, auto;
+  --cursor-small: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='2.2' fill='%23111111' stroke='white' stroke-width='1.2'/%3E%3C/svg%3E") 8 8, auto;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --fs-text: 1.0625rem;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --btn-h: 2.2rem;
+    --btn-pad: 0.75rem;
+  }
+}
+
+html[data-sky='night'] {
+  --sky-ink: #e9eff7;
+  --sky-ink-soft: #ccd8e8;
+  --cursor-dot: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='3.2' fill='white' stroke='%23111111' stroke-width='1.2'/%3E%3C/svg%3E") 8 8, auto;
+  --cursor-small: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='2.2' fill='white' stroke='%23111111' stroke-width='1.2'/%3E%3C/svg%3E") 8 8, auto;
+}
+
+html[data-sky] {
+  --nav-bg: #ffffff;
+  --nav-ink: #111111;
+}
+
+@layer base {
+/* ───────────────────────── base ───────────────────────── */
+
+html {
+  scrollbar-width: none;
+  -webkit-text-size-adjust: 100%;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font: var(--type-text);
+  font-feature-settings: 'lnum' 1;
+  letter-spacing: var(--ls-text);
+  background: var(--paper);
+  color: #171717;
+  overflow-x: clip;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-transform: capitalize;
+}
+
+em,
+i {
+  font-style: normal;
+}
+
+:focus-visible {
+  outline: 2px solid;
+  outline-offset: 4px;
+}
+
+::selection {
+  background: var(--signal);
+  color: var(--paper);
+}
+
+#main-content {
+  scroll-margin-top: 5rem;
+}
+
+@media (pointer: fine) {
+  html,
+  body,
+  a,
+  button,
+  input,
+  [role='button'] {
+    cursor: var(--cursor-dot);
+  }
+  :root[data-dot='small'],
+  :root[data-dot='small'] :is(body, a, button, [role='button']) {
+    cursor: var(--cursor-small);
+  }
+  :root[data-dot='none'],
+  :root[data-dot='none'] :is(body, a, button, [role='button']) {
+    cursor: none;
+  }
+}
+
+/* lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+}
+
+@layer components {
+/* ───────────────────────── type ───────────────────────── */
+
+.type-text {
+  font: var(--type-text);
+  letter-spacing: var(--ls-text);
+}
+.type-head {
+  font: var(--type-head);
+  letter-spacing: var(--ls-head);
+  text-transform: uppercase;
+}
+.type-title {
+  font: var(--type-title);
+  letter-spacing: var(--ls-title);
+  text-transform: capitalize;
+}
+.type-meta {
+  font: var(--type-meta);
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+}
+
+/* The home page runs a touch heavier and tighter than the inner pages. */
+.home-titles {
+  --fs-title: clamp(2.25rem, 3.6vw, 4.25rem);
+  --type-title: 600 var(--fs-title) / 1 var(--font-grotesk);
+  --ls-title: -0.05em;
+  --type-mtitle: 600 clamp(2.25rem, 10.5vw, 2.75rem) / 1 var(--font-grotesk);
+  --ls-mtitle: -0.05em;
+}
+
+.sky-ink {
+  color: var(--sky-ink);
+  transition: color 2.2s;
+}
+.hero-ink {
+  color: #111;
+  text-shadow: 0 1px 24px rgb(255 255 255 / 0.45);
+  transition:
+    color 2.2s,
+    text-shadow 2.2s;
+}
+.hero-ink h1 {
+  text-shadow: none;
+}
+html[data-sky='sunset'] .hero-ink,
+html[data-sky='night'] .hero-ink {
+  color: #fffaf3;
+  text-shadow:
+    0 2px 30px rgb(60 70 120 / 0.28),
+    0 1px 3px rgb(40 50 90 / 0.18);
+}
+
+.hero-headline {
+  margin: 0;
+  font: var(--type-title);
+  letter-spacing: var(--ls-title);
+  text-transform: capitalize;
+  text-wrap: balance;
+  transition: opacity 0.5s;
+}
+@media (max-width: 400px) {
+  .hero-headline {
+    font-size: min(var(--fs-title), 9.4vw);
+  }
+}
+.hero-ink[data-out] h1.hero-headline,
+.hero-ink[data-out] .hero-intro {
+  opacity: 0;
+}
+.hero-intro {
+  transition: opacity 0.5s;
+}
+
+/* SplitText line masks need a little room for descenders */
+[class^='line'][class$='-mask'] {
+  margin-bottom: -0.18em;
+  padding-bottom: 0.18em;
+}
+
+/* ───────────────────────── links ───────────────────────── */
+
+.link-draw {
+  padding-bottom: 0.08em;
+  background: linear-gradient(currentColor, currentColor) right 100% / 0% 1px no-repeat;
+  transition: background-size 0.52s cubic-bezier(0.65, 0, 0.2, 1);
+}
+.link-swap {
+  padding-bottom: 0.08em;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
+}
+@media (hover: hover) {
+  .link-draw:hover,
+  .link-draw:focus-visible {
+    background-position: 0 100%;
+    background-size: 100% 1px;
+  }
+  .link-swap:hover,
+  .link-swap:focus-visible {
+    animation: link-redraw 0.8s cubic-bezier(0.65, 0, 0.2, 1);
+  }
+}
+@keyframes link-redraw {
+  0% {
+    background-position: right 100%;
+    background-size: 100% 1px;
+  }
+  45% {
+    background-position: right 100%;
+    background-size: 0% 1px;
+  }
+  46% {
+    background-position: 0 100%;
+    background-size: 0% 1px;
+  }
+  to {
+    background-position: 0 100%;
+    background-size: 100% 1px;
+  }
+}
+
+/* ───────────────────────── button ───────────────────────── */
+
+:is(a, button).btn {
+  --btn-bg: var(--sage);
+  --btn-ink: #0f0f0f;
+  --btn-fill: var(--butter);
+  --btn-sq: #0f0f0f;
+  --btn-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='square'%3E%3Cpath d='M7 17 17 7M9 7h8v8'/%3E%3C/svg%3E");
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  box-sizing: border-box;
+  width: fit-content;
+  height: var(--btn-h);
+  padding: 0 4px 0 var(--btn-pad);
+  overflow: hidden;
+  border: 0;
+  border-radius: 3px;
+  background: var(--btn-bg);
+  color: var(--btn-ink);
+  font: var(--type-text);
+  font-weight: 600;
+  letter-spacing: var(--ls-text);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+}
+:is(a, button).btn:is(:has(svg), [data-plain]) {
+  padding-right: var(--btn-pad);
+}
+/* the little arrow tile */
+:is(a, button).btn:not(:has(svg), [data-plain])::after {
+  content: '';
+  flex: none;
+  width: calc(var(--btn-h) - 8px);
+  height: calc(var(--btn-h) - 8px);
+  border-radius: 2px;
+  background: var(--btn-sq) var(--btn-arrow) 50% 50% / 58% no-repeat;
+  transition: background-position 0.52s cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* the fill that rises from below on hover */
+:is(a, button).btn::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 100%;
+  left: 50%;
+  width: calc(100% + 2 * var(--btn-h));
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--btn-fill);
+  translate: -50% -50%;
+  scale: 0;
+  transition: scale 0.62s cubic-bezier(0.65, 0, 0.2, 1);
+}
+@media (hover: hover) {
+  :is(a, button).btn:hover::before {
+    scale: 1;
+  }
+  :is(a, button).btn:hover::after {
+    background-position: 62% 38%;
+  }
+}
+:is(a, button).btn:focus-visible::before {
+  scale: 1;
+}
+:is(a, button).btn:focus-visible {
+  outline: 2px solid;
+  outline-offset: 3px;
+}
+:is(a, button).btn.btn-solid {
+  --btn-bg: #0f0f0f;
+  --btn-ink: var(--paper);
+  --btn-fill: var(--sage);
+  --btn-sq: var(--sage);
+  --btn-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f0f0f' stroke-width='2.2' stroke-linecap='square'%3E%3Cpath d='M7 17 17 7M9 7h8v8'/%3E%3C/svg%3E");
+}
+:is(a, button).btn.btn-solid:hover,
+:is(a, button).btn.btn-solid:focus-visible {
+  color: #0f0f0f;
+}
+
+/* ───────────────────────── page transition ───────────────────────── */
+
+.pt-cover {
+  position: fixed;
+  inset: 0;
+  z-index: 365;
+  display: flex;
+  visibility: hidden;
+  pointer-events: none;
+}
+.pt-cover[data-on] {
+  visibility: visible;
+  pointer-events: auto;
+}
+.pt-cover > i {
+  position: relative;
+  flex: 1 1 0;
+  margin-right: -1px;
+  overflow: hidden;
+  background: #141110;
+  box-shadow: inset -1px 0 rgb(255 255 255 / 0.08);
+  transform: translateY(-101%);
+  will-change: transform;
+}
+.pt-mark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400%;
+  height: 100%;
+  padding: 14vh 10vw;
+  color: #f4f0e9;
+}
+.pt-cover > i:nth-child(2) .pt-mark {
+  left: -100%;
+}
+.pt-cover > i:nth-child(3) .pt-mark {
+  left: -200%;
+}
+.pt-cover > i:nth-child(4) .pt-mark {
+  left: -300%;
+}
+
+.pt-arrive h1,
+.pt-arrive [data-arrive] {
+  animation: arrive 0.9s cubic-bezier(0.2, 0.7, 0.1, 1) 0.1s both;
+}
+.pt-arrive [data-arrive] {
+  animation-delay: 0.2s;
+}
+@keyframes arrive {
+  0% {
+    opacity: 0;
+    transform: translateY(45%) skewY(4deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ───────────────────────── surfaces ───────────────────────── */
+
+/* Five hairlines down the page, like a layout grid left switched on. */
+.col-lines {
+  position: relative;
+  isolation: isolate;
+}
+.col-lines::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 0 7.5%;
+  z-index: -1;
+  pointer-events: none;
+  background-image: linear-gradient(to right, color-mix(in srgb, currentColor 8%, transparent) 1px, transparent 1px);
+  background-size: 20% 100%;
+  transform-origin: 50% 0;
+  transition: transform 1.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+@media (max-width: 767px) {
+  .col-lines::before {
+    left: var(--page-x);
+    background-size: 33.333% 100%;
+  }
+}
+html[data-lines-anim] .col-lines:not([data-lines-in])::before {
+  transform: scaleY(0);
+}
+
+.grain-film {
+  position: relative;
+  isolation: isolate;
+}
+.grain-film::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.3;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.4 -0.2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.on-black {
+  color: #ece9e3;
+}
+
+
+
+/* pulsing ring on the sky dial */
+@keyframes sky-pulse {
+  0%,
+  to {
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, currentColor 20%, transparent),
+      0 0 10px 0 color-mix(in srgb, currentColor 8%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, currentColor 42%, transparent),
+      0 0 18px 2px color-mix(in srgb, currentColor 22%, transparent);
+  }
+}
+
+@media (max-width: 767px) {
+  #contact-title {
+    font: var(--type-mtitle);
+    letter-spacing: var(--ls-mtitle);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .col-lines::before,
+  :is(a, button).btn,
+  :is(a, button).btn::before,
+  :is(a, button).btn::after {
+    transition: none;
+  }
+  .pt-arrive h1,
+  .pt-arrive [data-arrive] {
+    animation: none;
+  }
+}
+}

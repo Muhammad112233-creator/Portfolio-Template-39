@@ -1,0 +1,105 @@
+.section {
+  position: relative;
+  background: #fff;
+  color: #0f0f0f;
+}
+.pin {
+  height: 200svh;
+}
+.room {
+  position: relative;
+  min-height: 75svh;
+}
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-y;
+}
+.mark {
+  position: absolute;
+  top: 30%;
+  left: 45%;
+  width: 10%;
+  height: 92%;
+  pointer-events: none;
+}
+.title {
+  position: absolute;
+  top: 17%;
+  right: 0;
+  left: 0;
+  margin: 0;
+  font: 500 8.4vw / 1 var(--font-grotesk);
+  letter-spacing: -0.05em;
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+  translate: 0 -50%;
+}
+.period {
+  display: inline-block;
+  width: 0.15em;
+  height: 0.15em;
+  margin-left: 0.03em;
+  border-radius: 50%;
+  background: #0f0f0f;
+}
+.more {
+  position: absolute;
+  top: 14svh;
+  left: var(--page-x);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  max-width: 32rem;
+}
+.moreRight {
+  position: absolute;
+  top: 54svh;
+  right: 15vw;
+  max-width: 26rem;
+}
+.moreText {
+  margin: 0;
+  font: var(--type-text);
+  color: #0f0f0f;
+}
+@media (max-width: 767px) {
+  .pin {
+    height: 140svh;
+  }
+  .mark {
+    top: 32%;
+    height: 62%;
+  }
+  .title {
+    top: 19%;
+    font: var(--type-mtitle);
+    letter-spacing: var(--ls-mtitle);
+    line-height: 0.9;
+    white-space: normal;
+  }
+  .room {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 2rem;
+    min-height: 0;
+    padding: 2svh var(--page-x, 1rem) 6svh;
+  }
+  .more,
+  .moreRight {
+    position: static;
+    max-width: none;
+  }
+  .moreRight {
+    align-self: flex-end;
+    max-width: 80%;
+    text-align: right;
+  }
+}
